@@ -125,15 +125,17 @@ sudo apt install -y -t ${VERSION_CODENAME}-backports cockpit || sudo apt install
 echo === Cockpit installation complete.
 IP_ADDR=$(ip route get 8.8.8.8 | awk '{for(i=1;i<=NF;i++) if ($i=="src") print $(i+1)}')
 
-echo =================
-echo =Setup complete!=
-echo =================
+echo
+echo ===================
+echo = Setup complete! =
+echo ===================
+echo
 cat <<EOF > lastword.txt
 You can access Cockpit by navigating to https://$IP_ADDR:9090
 Don't forget to replace [coin] and [address] in start-xmrig.sh with your desired coin and wallet address before running the miner.
 You can paste your [coin]:[address] by editing the execution script located at $USER_HOME/start-xmrig.sh via Cockpit's terminal.
 EOF
 cat lastword.txt
-echo The message has been saved to lastword.txt. You can watch it by running \"cat lastword.txt\".
+echo The message has been saved to lastword.txt. You can check it again by running \"cat lastword.txt\".
 echo Now starting self-destruction process of this script.
 rm -- "$0"

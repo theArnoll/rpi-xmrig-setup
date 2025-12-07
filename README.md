@@ -1,23 +1,23 @@
 This file is for Raspberry Pi that runs Ubuntu Server to be configured to an XMRig machine
 
-### This installed or configured
+### What this script does
 
 - Swappiness (Swap when RAM usage hits 90%)
 
 - Log2Ram
 
-- XMRig ([coin]:[address] haven't setted)
+- XMRig ([coin]:[address] haven't set)
+
+- Systemd (make XMRig able to start mining on boot)
 
 - Cockpit
-
-### DO NOT just disconnect the monitor after dropping the script. There're some purple screens to deal with.
 
 ### Instruction:
 
 #### First,
 
 ```shell
-wget https://raw.githubusercontent.com/theArnoll/rpi-xmrig-setup/main/setup_miner.sh
+wget https://raw.githubusercontent.com/theArnoll/rpi-xmrig-setup/main/rpi-xmrig-setup.sh
 ```
 
 or the short link version:
@@ -25,6 +25,8 @@ or the short link version:
 ```shell
 wget https://pse.is/rpi-xmrig-setup
 ```
+
+I suggest **keeping your monitor connected** during the installation. You will need to note down the IP address displayed at the end of the setup in order to enter your crypto wallet to `~/start-xmrig.sh`.
 
 #### Then,
 
@@ -35,12 +37,20 @@ chmod +x rpi-xmrig-setup
 
 #### After that,
 
-Input your password
+Wait until `Setup complete!` shows, and check your Cockpit IP address and note it down. You can now disconnect the monitor.
 
-Make your choice in some purple screens
+**You have to** edit `~/start-xmrig.sh` to replace `[coin]:[address]` with your actual wallet details before rebooting in order to start mining.
 
-After displaying your IP address, you're free to go!
+### Accessing your Pi
 
-### Accessing you Pi
+The script installs `cockpit` in your Pi. Navigate to `https://[your_raspberry_pi_ip]:9090` in your browser to manage the system, check status, and use the built-in Terminal (just like using PuTTY).
 
-We installed `cockpit` in our Pi, so you can go to `http://[your_raspberry_pi_ip]:9090` to go to cockpit, see what's going on in your Pi and see the status, and run commands almost like you're using PuTTY in the Terminal of the page
+**Note:** You will likely see a "Your connection is not private" warning because Cockpit uses a self-signed certificate. This is normal; please proceed (click "Advanced" > "Proceed to...").
+
+**Login** with your Pi's username and password.
+
+---
+
+#### Tested on
+
+- Ubuntu 22.04 on VMWare (x64, 2 CPUs, 3.5GB RAM (to emulate the real RAM availability of a 4GB Pi))
